@@ -1,0 +1,106 @@
+package com.letsdoit.tictactoe;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class MainActivity extends Activity implements OnClickListener {
+	private static final String TAG ="TICTACTOE";
+	private static final int MAX_ROW = 3;
+	private static final int MAX_COLUMN = 3;
+	private static final int[] BUTTON_IDS = {
+		R.id.b11,
+		R.id.b12,
+		R.id.b13,
+		R.id.b21,
+		R.id.b22,
+		R.id.b23,
+		R.id.b31,
+		R.id.b32,
+		R.id.b33
+	};
+	int firstIdx = 1;
+	int secondIdx = 1;
+	Button[] buttonArr = new Button[MAX_ROW * MAX_COLUMN];
+	boolean[] checked ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+/*        for(int row = 0 ; row < MAX_ROW; row++){
+        	firstIdx = row + 1;
+        	for(int colmn = 0; colmn < MAX_COLUMN; colmn++){
+        		secondIdx = colmn + 1;
+        		String rButtonId = "R.id." + String.valueOf(firstIdx) + 
+        				String.valueOf(secondIdx);
+        		
+        		buttonArr[row + row * colmn] = new Button(this);
+        	}
+        	
+        }*/
+        for(int id : BUTTON_IDS){
+        	int idx = 0;
+        	buttonArr[idx] = (Button)findViewById(id);
+        	Log.d(TAG, "Idx = " + idx + "Button Id = " + id);
+        	idx++;
+        	
+        }/*
+        buttonArr[0] = (Button) findViewById(R.id.b11);
+        buttonArr[1] = (Button) findViewById(R.id.b12);
+        buttonArr[2] = (Button) findViewById(R.id.b13);
+        buttonArr[3] = (Button) findViewById(R.id.b21);
+        buttonArr[4] = (Button) findViewById(R.id.b22);
+        buttonArr[5] = (Button) findViewById(R.id.b23);
+        buttonArr[6] = (Button) findViewById(R.id.b31);
+        buttonArr[7] = (Button) findViewById(R.id.b32);
+        buttonArr[8] = (Button) findViewById(R.id.b33);*/
+        
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+	@Override
+	public void onClick(View v) {
+		Button clickedBtn = (Button) v;
+		switch(clickedBtn.getId()){
+		case R.id.b11:
+			Log.d(TAG, "YOU PRESSED BUTTON 11");
+			if(checked[0] == false){
+				
+			}
+			break;
+		case R.id.b12:
+			break;
+		case R.id.b13:
+			break;
+		case R.id.b21:
+			break;
+		case R.id.b22:
+			break;
+		case R.id.b23:
+			break;
+		case R.id.b31:
+			break;
+		case R.id.b32:
+			break;
+		case R.id.b33:
+			break;
+			
+			
+		}
+		
+	}
+    
+}

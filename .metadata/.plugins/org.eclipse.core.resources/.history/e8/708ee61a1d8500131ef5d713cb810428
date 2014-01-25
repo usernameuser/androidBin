@@ -1,0 +1,146 @@
+package com.letsdoit.tictactoe;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class MainActivity extends Activity implements OnClickListener {
+	private static final String TAG ="TICTACTOE";
+	private static final int MAX_ROW = 3;
+	private static final int MAX_COLUMN = 3;
+	private static final String FILL_X = "X";
+	private static final String FILL_O = "O";
+	private static final int[] BUTTON_IDS = {
+		R.id.b11,
+		R.id.b12,
+		R.id.b13,
+		R.id.b21,
+		R.id.b22,
+		R.id.b23,
+		R.id.b31,
+		R.id.b32,
+		R.id.b33
+	};
+	int firstIdx = 1;
+	int secondIdx = 1;
+	Button[] buttonArr = new Button[MAX_ROW * MAX_COLUMN];
+	boolean[] checked = new boolean[MAX_ROW * MAX_COLUMN] ;
+	String[] whatFilled = new String[MAX_ROW * MAX_COLUMN];
+	boolean firstTimeClicked = true;
+	String whatToFillXorO = "NOTHINGTOFILL";
+	private int numClicked = 0;
+	
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+/*        for(int row = 0 ; row < MAX_ROW; row++){
+        	firstIdx = row + 1;
+        	for(int colmn = 0; colmn < MAX_COLUMN; colmn++){
+        		secondIdx = colmn + 1;
+        		String rButtonId = "R.id." + String.valueOf(firstIdx) + 
+        				String.valueOf(secondIdx);
+        		
+        		buttonArr[row + row * colmn] = new Button(this);
+        	}
+        	
+        }*/
+    	int idx = 0;
+        for(int id : BUTTON_IDS){
+        	buttonArr[idx] = (Button)findViewById(id);
+        	buttonArr[idx].setOnClickListener(this);
+        	Log.d(TAG, "Idx = " + idx + " Button Id = " + id);
+        	idx++;
+        }
+        for(int id = 0; id < whatFilled.length; id++){
+        	whatFilled[id] = "NOTHING";
+        }
+        	
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+	@Override
+	public void onClick(View v) {
+		Log.d(TAG, "YOU PRESSED BUTTON id = "+ v.getId());
+
+		int idx = 0;
+		for (int id : BUTTON_IDS){
+			if(id == v.getId()){
+				break;
+			}
+			idx++;
+		}
+		Log.d(TAG,"idx = "+ idx + "YOU PRESSED BUTTON id = "+ BUTTON_IDS[idx]);
+		if(checked[idx] == false){
+			checked[idx] = true;
+			if(firstTimeClicked == true){
+				buttonArr[idx].setText(String.valueOf(FILL_X));
+				whatFilled[idx] = FILL_X;
+				whatToFillXorO = FILL_O;
+				firstTimeClicked = false;
+			}
+			else if(whatToFillXorO == FILL_O){
+				buttonArr[idx].setText(String.valueOf(FILL_O));
+				whatFilled[idx] = FILL_O;
+				whatToFillXorO = FILL_X;
+			}
+			else if(whatToFillXorO == FILL_X){
+				buttonArr[idx].setText(String.valueOf(FILL_X));
+				whatFilled[idx] = FILL_X;
+				whatToFillXorO = FILL_O;
+			}
+			buttonArr[idx].setClickable(false);
+			numClicked++;
+			if(numClicked >4){
+				checkWinnerPossible(idx, whatFilled[idx]);
+			}
+			
+		}
+	}
+    
+	private void checkWinnerPossible(int idx, String chance) {
+		switch(idx + 1){
+		case 1:
+			int possibleComb  = 3;
+			if(whatFilled[0] == chance && 
+					whatFilled[1] == chance &&
+							whatFilled[2] == chance){
+				Log.d(TAG, chance + " WINS!!!!!!!!");
+			}
+				
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+		case 9:
+			break;
+		default:
+			break;
+		}
+		
+	}
+}
